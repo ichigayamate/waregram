@@ -28,6 +28,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./",\
         "packageDependencies": [\
           ["bcrypt", "npm:5.1.1"],\
+          ["dotenv", "npm:16.4.7"],\
           ["ejs", "npm:3.1.10"],\
           ["express", "npm:5.0.1"],\
           ["nodemon", "npm:3.1.9"],\
@@ -321,6 +322,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["basic-warehouse-management-system", "workspace:."],\
           ["bcrypt", "npm:5.1.1"],\
+          ["dotenv", "npm:16.4.7"],\
           ["ejs", "npm:3.1.10"],\
           ["express", "npm:5.0.1"],\
           ["nodemon", "npm:3.1.9"],\
@@ -789,6 +791,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../../../../C:/Users/windr/AppData/Local/Yarn/Berry/cache/detect-libc-npm-2.0.3-2ddae34945-10c0.zip/node_modules/detect-libc/",\
         "packageDependencies": [\
           ["detect-libc", "npm:2.0.3"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["dotenv", [\
+      ["npm:16.4.7", {\
+        "packageLocation": "../../../../../../C:/Users/windr/AppData/Local/Yarn/Berry/cache/dotenv-npm-16.4.7-29680c94f8-10c0.zip/node_modules/dotenv/",\
+        "packageDependencies": [\
+          ["dotenv", "npm:16.4.7"]\
         ],\
         "linkType": "HARD"\
       }]\
