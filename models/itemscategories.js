@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ItemsCategories.init({
-    ItemsId: DataTypes.UUID,
-    CategoriesId: DataTypes.UUID
+    ItemId: DataTypes.UUID,
+    CategoryId: DataTypes.UUID
   }, {
     sequelize,
     modelName: 'ItemsCategories',

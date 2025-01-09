@@ -10,14 +10,14 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal('uuid_generate_v4()'),
       },
-      ItemsId: {
+      ItemId: {
         type: Sequelize.UUID,
         references: {
           model: 'Items',
           key: 'id'
         }
       },
-      CategoriesId: {
+      CategoryId: {
         type: Sequelize.UUID,
         references: {
           model: 'Categories',
