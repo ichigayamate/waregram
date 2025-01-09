@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const {
   Model
 } = require('sequelize');
+const {Profiles} = require("./index");
 module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
     /**
@@ -17,8 +18,34 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Users.init({
-    username: DataTypes.STRING,
-    password: DataTypes.STRING
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Username is required'
+        },
+        notEmpty: {
+          msg: 'Username is required'
+        },
+        len: {
+          args: [5],
+          msg: 'Username must be minimal 5 characters'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: 'Password is required'
+        },
+        len: {
+          args: [8],
+          msg: 'Password must be minimal 8 characters'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'Users',
@@ -29,7 +56,8 @@ module.exports = (sequelize, DataTypes) => {
         const saltRounds = 10;
         const salt = bcrypt.genSaltSync(saltRounds);
         user.password = bcrypt.hashSync(password, salt);
-      }
+        user.RoleId = "user";
+      },
     }
   });
   return Users;

@@ -16,12 +16,12 @@
             <td><%= item.description %></td>
             <td><%= item.Profile.name %></td>
             <td><%= item.Categories.map(category => category.name).join(", ") %></td>
-            <td><%= new Date(item.estimatedDelivery) %></td>
+            <td><%= dayjs(item.estimatedDelivery).format("dddd, DD MMMM YYYY") %></td>
             <% if (Boolean(user)) { %>
             <td>
                 <form action="/delete" method="post">
                     <input type="hidden" name="id" value="<%= item.id %>">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    <button type="submit" class="btn btn-success btn-sm">Item is delivered</button>
                 </form>
             </td>
             <% } %>

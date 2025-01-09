@@ -1,0 +1,35 @@
+<%- include("../partials/header", {title: "Waregram: Add User", user} ) %>
+<% if (error.length > 0) { %>
+    <% error.forEach(err => { %>
+        <div class="alert alert-danger" role="alert">
+            <%= err.message %>
+        </div>
+    <% }) %>
+<% } %>
+<form action="/admin/add" method="post">
+    <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" required class="form-control" id="username" name="username"
+               value="<%= value?.username || "" %>">
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" required class="form-control" id="password" name="password">
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" required class="form-control" id="name" name="name" value="<%= value?.name || "" %>">
+    </div>
+    <div class="mb-3">
+        <label for="department" class="form-label">Department</label>
+        <input type="text" required class="form-control" id="department" name="department"
+               value="<%= value?.department || "" %>">
+    </div>
+    <div class="mb-3">
+        <label for="work_since" class="form-label">Work Since</label>
+        <input type="date" required class="form-control" id="work_since" name="work_since"
+               value="<%= value?.work_since ? dayjs(value.work_since).format("YYYY-MM-DD") : "" %>">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<%- include("../partials/footer") %>

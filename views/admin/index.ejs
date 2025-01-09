@@ -1,0 +1,34 @@
+<%- include("../partials/header", {title: "Waregram: Admin Page", user} ) %>
+<table class="table">
+    <tr>
+        <th>No</th>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Department</th>
+        <th>Work Since</th>
+        <th>App Role</th>
+        <th></th>
+    </tr>
+    <% users.map((userEl, idx) => { %>
+        <tr>
+            <td><%= idx + 1 %></td>
+            <td><%= userEl.username %></td>
+            <td><%= userEl.Profile.name %></td>
+            <td><%= userEl.Profile.department %></td>
+            <td><%= dayjs(userEl.Profile.work_since).format("DD MMMM YYYY") %></td>
+            <td><%= userEl.Role.name %></td>
+            <td>
+                <a href="/admin/edit/<%= userEl.id %>" class="btn btn-outline-secondary btn-sm">Edit</a>
+                <% if (user.id !== userEl.id) { %>
+                <form action="/admin/delete/<%= userEl.id%>" method="post" style="display: inline-block">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+                <% } %>
+            </td>
+        </tr>
+    <% }) %>
+</table>
+<div class="d-grid gap-2">
+    <a href="/admin/add" class="btn btn-primary" type="button">Add User</a>
+</div>
+<%- include("../partials/footer") %>

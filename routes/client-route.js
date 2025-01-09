@@ -6,5 +6,6 @@ const router = express.Router();
 router.get("/", IndexController.viewIndex);
 router.get("/logout", LoginController.logout);
 router.use("/login", require("./login"));
+router.use("/admin", require("./admin"));
 
 module.exports = router;
