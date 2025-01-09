@@ -1,13 +1,13 @@
 const {Items} = require('../models');
-const {checkAuth} = require("../helper/checkauth");
+const {checkAuth, checkUser} = require("../helper/checkauth");
 
 module.exports = {
   async viewIndex(req, res) {
-    const isAuth = await checkAuth(req, res);
+    const user = await checkUser(req, res);
     await Items.findAll({
-      include: "Categories"
+      include: ["Profile", "Categories"]
     }).then((items) => {
-      res.render('index', {items, isAuth: Boolean(isAuth)});
+      res.render('index', {items, user});
     }).catch((error) => {
       res.status(500).json({error: error.message});
     });

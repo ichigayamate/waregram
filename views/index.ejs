@@ -1,3 +1,31 @@
-<%- include("./partials/header", {title: "Waregram", isAuth} )%>
-
+<%- include("./partials/header", {title: "Waregram", user} )%>
+<table class="table">
+    <tr>
+        <th>Product</th>
+        <th>Description</th>
+        <th>PIC</th>
+        <th>Category</th>
+        <th>Delivery Due</th>
+        <% if (Boolean(user)) { %>
+        <th></th>
+        <% } %>
+    </tr>
+    <% items.map ((item) => { %>
+        <tr>
+            <td><%= item.name %></td>
+            <td><%= item.description %></td>
+            <td><%= item.Profile.name %></td>
+            <td><%= item.Categories.map(category => category.name).join(", ") %></td>
+            <td><%= new Date(item.estimatedDelivery) %></td>
+            <% if (Boolean(user)) { %>
+            <td>
+                <form action="/delete" method="post">
+                    <input type="hidden" name="id" value="<%= item.id %>">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+            <% } %>
+        </tr>
+    <% }) %>
+</table>
 <%- include("./partials/footer") %>

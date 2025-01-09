@@ -17,7 +17,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
-                    <% if (!isAuth) { %>
+                    <% if (!user) { %>
                         <li class="nav-item">
                             <a class="nav-link" href="/login">Login</a>
                         </li>
@@ -25,9 +25,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Add Item</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Admin Menu</a>
-                        </li>
+                        <% if (user.Role.name === "Admin") { %>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Admin Menu</a>
+                            </li>
+                        <% } %>
                         <li class="nav-item">
                             <a class="nav-link" href="/logout">Logout</a>
                         </li>

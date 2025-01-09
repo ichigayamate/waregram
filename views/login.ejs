@@ -1,4 +1,4 @@
-<%- include("./partials/header", {title: "Teheperinko", isAuth: false} ) %>
+<%- include("./partials/header", {title: "Waregram: Login", user: false} ) %>
 <p><%= message || ""%></p>
 <form action="/login" method="post">
     <input type="text" name="username" placeholder="Username" required>

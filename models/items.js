@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Items.belongsTo(models.Profiles, {
+        foreignKey: 'PIC',
+        as: "Profile",
+      });
       Items.belongsToMany(models.Categories, {
         through: models.ItemsCategories,
       });
@@ -20,7 +24,13 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     estimatedDelivery: DataTypes.DATE,
-    PIC: DataTypes.UUID
+    PIC: {
+      type: DataTypes.UUID,
+      references: {
+        model: 'Profiles',
+        key: 'id',
+      }
+    }
   }, {
     sequelize,
     modelName: 'Items',
