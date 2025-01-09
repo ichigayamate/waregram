@@ -1,6 +1,7 @@
 const {checkUser} = require("../helper/checkauth");
 const {Users, Profiles} = require("../models");
 const dayjs = require("dayjs");
+const bcrypt = require("bcrypt");
 
 module.exports = {
   async viewAllUser(req, res) {
@@ -22,7 +23,7 @@ module.exports = {
       return res.redirect("/");
     }
 
-    res.render("admin/add", {user, value: null, dayjs, error: []});
+    res.render("admin/add", {edit: false, user, value: null, dayjs, error: []});
   },
 
   async addUser(req, res) {
@@ -46,7 +47,69 @@ module.exports = {
       res.redirect("/admin");
     }).catch((error) => {
       if (error.name === "SequelizeValidationError") {
-        return res.render("admin/add", {user, error: error.errors, value: {username, name, department, work_since}, dayjs});
+        return res.render("admin/add", {edit: false, user, error: error.errors, value: {username, name, department, work_since}, dayjs});
+      }
+      res.status(500).json({error: error.message});
+    });
+  },
+
+  async viewEditUser(req, res) {
+    const user = await checkUser(req, res);
+    if (!user || user.Role.id !== "admin") {
+      return res.redirect("/");
+    }
+
+    const {id} = req.params;
+    const editUser = await Users.findOne({
+      where: {id},
+      include: ["Profile"]
+    });
+    const value = {
+      username: editUser.username,
+      name: editUser.Profile.name,
+      department: editUser.Profile.department,
+      work_since: editUser.Profile.work_since
+    };
+
+    res.render("admin/add", {edit: true, id, user, value, dayjs, error: []});
+  },
+
+  async editUser(req, res) {
+    const user = await checkUser(req, res);
+    if (!user || user.Role.id !== "admin") {
+      return res.status(403).json({error: "Unauthorized"});
+    }
+
+    const {id} = req.params;
+    const {username, password, name, department, work_since} = req.body;
+    let changedPass = "";
+    if (!password) {
+      const userData = await Users.findOne({
+        where: {id}
+      });
+      changedPass = userData.password;
+    } else {
+      const salt = bcrypt.genSaltSync(10);
+      changedPass = bcrypt.hashSync(password, salt);
+    }
+    await Users.update({
+      username,
+      password: changedPass
+    }, {
+      where: {id}
+    }).then(async () => {
+      await Profiles.update({
+        name,
+        department,
+        work_since
+      }, {
+        where: {UserId: id}
+      });
+    }).then(() => {
+      res.redirect("/admin");
+    }).catch((error) => {
+      if (error.name === "SequelizeValidationError") {
+        return res.render("admin/add", {edit: true, id, user, error: error.errors, value: {username, name, department, work_since}, dayjs});
       }
       res.status(500).json({error: error.message});
     });

@@ -1,0 +1,41 @@
+<%- include("./partials/header", {title: "Waregram: Add Item", user} ) %>
+<% if (error.length > 0) { %>
+    <% error.forEach(err => { %>
+        <div class="alert alert-danger" role="alert">
+            <%= err.message %>
+        </div>
+    <% }) %>
+<% } %>
+<form action="/item/add" method="post">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" required class="form-control" id="name" name="name"
+               value="<%= value?.name || "" %>">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description" value="<%= value?.description || "" %>" required>
+    </div>
+    <% if (user.Role.id === "admin") { %>
+    <div class="mb-3">
+        <label for="picSelect" class="form-label">PIC</label>
+        <select class="form-select" id="picSelect" name="PIC" required>
+            <option value="">Select PIC</option>
+            <% allUsers.forEach(userEl => { %>
+                <option value="<%= userEl.Profile.id %>" <%= value?.PIC === userEl.Profile.id ? "selected" : "" %>><%= userEl.Profile.name %></option>
+            <% }) %>
+        </select>
+    </div>
+    <% } %>
+    <div class="mb-3">
+        <label for="categorySelect" class="form-label">Category</label>
+        <% allCategories.forEach(category => { %>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="category_<%= category.id %>" name="category" value="<%= category.id %>" <%= value?.Categories?.map(cat => cat.id).includes(category.id) ? "checked" : "" %>>
+                <label class="form-check-label" for="category_<%= category.id %>"><%= category.name %></label>
+            </div>
+        <% }) %>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<%- include("./partials/footer") %>

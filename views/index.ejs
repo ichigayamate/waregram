@@ -1,13 +1,32 @@
-<%- include("./partials/header", {title: "Waregram", user} )%>
+<%- include("./partials/header", {title: "Waregram", user} ) %>
+<form action="/" class="mb-3">
+    <div class="input-group mb-3">
+        <input type="search" name="search" class="form-control" placeholder="Search" value="<%= searchQuery || "" %>">
+        <button class="btn btn-outline-secondary" type="submit">Search</button>
+    </div>
+</form>
+
+<% if (Boolean(user)) { %>
+    <div class="alert alert-info" role="alert">
+        <strong>Hello, <%= user.Profile.name %>!</strong>
+        <% if (user.Role.id === "admin") { %>
+        You are an admin and can view all items here.
+        <% } else { %>
+        You have <%= status.total %> items in total
+        (<%= status.onTime %> on time, <%= status.late %> late, and <%= status.delivered %> delivered).
+        <% } %>
+    </div>
+<% } %>
 <table class="table">
     <tr>
         <th>Product</th>
         <th>Description</th>
         <th>PIC</th>
         <th>Category</th>
+        <th>Status</th>
         <th>Delivery Due</th>
         <% if (Boolean(user)) { %>
-        <th></th>
+            <th></th>
         <% } %>
     </tr>
     <% items.map ((item) => { %>
@@ -16,14 +35,19 @@
             <td><%= item.description %></td>
             <td><%= item.Profile.name %></td>
             <td><%= item.Categories.map(category => category.name).join(", ") %></td>
-            <td><%= dayjs(item.estimatedDelivery).format("dddd, DD MMMM YYYY") %></td>
+            <td><%= item.status %></td>
+            <td><%= item.status !== "Delivered" ? item.formattedDate : "Item is Delivered" %></td>
             <% if (Boolean(user)) { %>
-            <td>
-                <form action="/delete" method="post">
-                    <input type="hidden" name="id" value="<%= item.id %>">
-                    <button type="submit" class="btn btn-success btn-sm">Item is delivered</button>
-                </form>
-            </td>
+                <td>
+                    <% if (item.status !== "Delivered") { %>
+                        <form action="/item/finish-delivery/<%= item.id %>" method="post" style="display: inline-block">
+                            <button type="submit" class="btn btn-success btn-sm">Finish delivery</button>
+                        </form>
+                    <% } %>
+                    <form action="/item/delete/<%= item.id %>" method="post" style="display: inline-block">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
             <% } %>
         </tr>
     <% }) %>

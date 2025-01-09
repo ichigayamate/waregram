@@ -7,5 +7,6 @@ router.get("/", IndexController.viewIndex);
 router.get("/logout", LoginController.logout);
 router.use("/login", require("./login"));
 router.use("/admin", require("./admin"));
+router.use("/item", require("./item"));
 
 module.exports = router;
