@@ -87,6 +87,11 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: 'Profiles',
         key: 'id',
+      },
+      validate: {
+        notEmpty: {
+          msg: "PIC is required"
+        }
       }
     }
   }, {
