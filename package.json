@@ -1,5 +1,5 @@
 {
-  "name": "basic-warehouse-management-system",
+  "name": "waregram",
   "packageManager": "yarn@4.4.1",
   "main": "index.js",
   "license": "MIT",
