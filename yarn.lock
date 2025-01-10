@@ -258,28 +258,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"basic-warehouse-management-system@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "basic-warehouse-management-system@workspace:."
-  dependencies:
-    axios: "npm:^1.7.9"
-    bcrypt: "npm:^5.1.1"
-    cookie-parser: "npm:^1.4.7"
-    dayjs: "npm:^1.11.13"
-    dotenv: "npm:^16.4.7"
-    ejs: "npm:^3.1.10"
-    express: "npm:^5.0.0"
-    jsonwebtoken: "npm:^9.0.2"
-    method-override: "npm:^3.0.0"
-    nodemon: "npm:^3.1.9"
-    pg: "npm:^8.13.1"
-    pg-hstore: "npm:^2.3.4"
-    process: "npm:^0.11.10"
-    sequelize: "npm:^6.37.5"
-    sequelize-cli: "npm:^6.6.2"
-  languageName: unknown
-  linkType: soft
-
 "bcrypt@npm:^5.1.1":
   version: 5.1.1
   resolution: "bcrypt@npm:5.1.1"
@@ -3074,6 +3052,28 @@ __metadata:
   checksum: 10c0/f15d588d79f3675135ba783c91a4083dcd290a2a5be9fcb6514220a1634e23df116847b1cc51f66bfb0644cf9353b2abb7815ae499bab06e46dd33c1a6bf1f4f
   languageName: node
   linkType: hard
+
+"waregram@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "waregram@workspace:."
+  dependencies:
+    axios: "npm:^1.7.9"
+    bcrypt: "npm:^5.1.1"
+    cookie-parser: "npm:^1.4.7"
+    dayjs: "npm:^1.11.13"
+    dotenv: "npm:^16.4.7"
+    ejs: "npm:^3.1.10"
+    express: "npm:^5.0.0"
+    jsonwebtoken: "npm:^9.0.2"
+    method-override: "npm:^3.0.0"
+    nodemon: "npm:^3.1.9"
+    pg: "npm:^8.13.1"
+    pg-hstore: "npm:^2.3.4"
+    process: "npm:^0.11.10"
+    sequelize: "npm:^6.37.5"
+    sequelize-cli: "npm:^6.6.2"
+  languageName: unknown
+  linkType: soft
 
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1
